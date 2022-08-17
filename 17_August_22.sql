@@ -108,3 +108,26 @@ mysql> select anime_list.anime_id,anime_list.anime_name from anime_list right jo
 +----------+--------------+
 3 rows in set (0.00 sec)
 
+mysql> create view top_ranked as select anime_name,rating from anime_list;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from top_ranked;
++--------------+--------+
+| anime_name   | rating |
++--------------+--------+
+| Class room   |      8 |
+| AOT          |     10 |
+| demon slayer |      9 |
++--------------+--------+
+3 rows in set (0.00 sec)
+
+mysql>  ALTER VIEW top_ranked as SELECT anime_id,anime_name from anime_list WHERE (rating>8) and (rating<10);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from top_ranked;
++----------+--------------+
+| anime_id | anime_name   |
++----------+--------------+
+|      103 | demon slayer |
++----------+--------------+
+1 row in set (0.00 sec)
