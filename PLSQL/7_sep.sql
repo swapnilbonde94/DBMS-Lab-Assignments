@@ -20,7 +20,18 @@ select * from Fine;
 */
 
 DECLARE
-    roll_number number :=: roll_no;
+    roll_no_lib int;
+    SystemDate date;
+    DOI_lib date;
+    BookName_lib varchar(30);
+    Days int;
+    
+    
 
 BEGIN
-    dbms.output_put_line(
+    roll_no_lib := :roll_no_lib;
+    BookName_lib := :Name_lib;
+
+    select Sysdate into SystemDate from dual;
+    select DateofIssue into DOI_lib from Borrower where Roll_no=roll_no_lib and BookName_lib=NameofBook;
+    Days = SystemDate - DOI_lib;
