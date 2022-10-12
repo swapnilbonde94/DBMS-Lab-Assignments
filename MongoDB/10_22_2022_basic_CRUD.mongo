@@ -101,4 +101,19 @@ db1> db.library.find();
     name: 'Java SDE'
   }
 ]
+
+db1> db.library.insert({"movie_name":"Insterstellar", "Year":2014});
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("63466cf0143b7defd3b0f4c4") }
+}
+db1> db.library.find({"Year":{$gt:2010}});
+[
+  {
+    _id: ObjectId("63466cf0143b7defd3b0f4c4"),
+    movie_name: 'Insterstellar',
+    Year: 2014
+  }
+]
 db1> 
+
