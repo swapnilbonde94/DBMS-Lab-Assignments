@@ -83,6 +83,73 @@ end;
 
 -- For cursor
 
+declare 
+
+cursor for_cur is
+select R_no,
+    Name1,
+    Status
+from O_RollCall
+where Status = 'Present';
+
+tmp for_cur %rowtype;
+
+begin for tmp in for_cur loop dbms_output.put_line(
+    '  ROLLNO:   ' || tmp.R_no || ' ' || '  Name:  ' || tmp.name || ' ' || 'Status: ' || tmp.Status
+);
+end loop;
+end;
+/
+
+
+/* Parameterized cursor: take input from the user and display*/
+
+declare 
+roll number;
+cursor param_cur(roll number) is
+select *
+from O_RollCall
+where R_no = roll;
+tmp param_cur %rowtype;
+begin roll := & roll;
+for tmp in param_cur(roll) 
+loop 
+    dbms_output.put_line('Roll No:   ' || tmp.R_no);
+    dbms_output.put_line('Name:   ' || tmp.Name1);
+    dbms_output.put_line('Status:   ' || tmp.Status);
+end loop;
+end;
+/
+
+-- MERGE
+begin 
+merge into N_RollCall t1 using (
+    select R_no,
+        Name1,
+        Status
+    from O_RollCall
+) t2 on (t1.R_no = t2.R_no)
+when not matched then
+insert
+values(t2.R_no, t2.Name1, t2.Status);
+if sql %rowcount > 0 then dbms_output.put_line('Merged  ' || sql %rowcount || ' Row Updated');
+else dbms_output.put_line('no row updated');
+end if;
+if sql %notfound then dbms_output.put_line('Not Merged');
+end if;
+end;
+/
+
+select * from N_RollCall;
+
+
+
+
+
+
+
+
+
 --   begin
 --     open c_mm;
 --     fetch c_mm into a, b, c, d;
