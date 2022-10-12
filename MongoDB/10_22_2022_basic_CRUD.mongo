@@ -1,0 +1,104 @@
+test> use db1;
+switched to db db1
+db1> create db db2;
+Uncaught:
+SyntaxError: Missing semicolon. (1:6)
+
+> 1 | create db db2;
+    |       ^
+  2 |
+
+db1> use db1;
+already on db db1
+db1> db.createCollection("library");
+{ ok: 1 }
+db1> db.library.insert({"book_id":1, "name":"OOP"}, {"book_id":2, "name":"Story", "cost":500});
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("63466a38143b7defd3b0f4c2") }
+}
+db1> db.library.find();
+[
+  {
+    _id: ObjectId("63466a38143b7defd3b0f4c2"),
+    book_id: 1,
+    name: 'OOP'
+  }
+]
+db1> db.library.insert({"book_id":2, "name":"Story", "cost":500});
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("63466a85143b7defd3b0f4c3") }
+}
+db1> db.library.find();
+[
+  {
+    _id: ObjectId("63466a38143b7defd3b0f4c2"),
+    book_id: 1,
+    name: 'OOP'
+  },
+  {
+    _id: ObjectId("63466a85143b7defd3b0f4c3"),
+    book_id: 2,
+    name: 'Story',
+    cost: 500
+  }
+]
+db1> db.library.update({"name":"Java"},{$set:{"name":"Java SDE"}});
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db1> db.library.find();
+[
+  {
+    _id: ObjectId("63466a38143b7defd3b0f4c2"),
+    book_id: 1,
+    name: 'OOP'
+  },
+  {
+    _id: ObjectId("63466a85143b7defd3b0f4c3"),
+    book_id: 2,
+    name: 'Story',
+    cost: 500
+  }
+]
+db1> db.library.update({"name":"OOP"},{$set:{"name":"Java SDE"}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db1> db.library.find();
+[
+  {
+    _id: ObjectId("63466a38143b7defd3b0f4c2"),
+    book_id: 1,
+    name: 'Java SDE'
+  },
+  {
+    _id: ObjectId("63466a85143b7defd3b0f4c3"),
+    book_id: 2,
+    name: 'Story',
+    cost: 500
+  }
+]
+db1> db.library.remove({"book_id":2});
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 1 }
+db1> db.library.find();
+[
+  {
+    _id: ObjectId("63466a38143b7defd3b0f4c2"),
+    book_id: 1,
+    name: 'Java SDE'
+  }
+]
+db1> 
