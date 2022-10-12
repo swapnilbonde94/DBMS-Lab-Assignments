@@ -1,0 +1,59 @@
+sudo rm -rf /tmp/mongodb-27017.sock
+(delete the file)
+
+(then restart the services)
+> sudo service mongod start 
+> sudo systemctl enable mongod.service
+> mongosh
+
+
+
+
+
+ubuntu@ubuntu-OptiPlex-5000:~$ sudo service mongod start
+[sudo] password for ubuntu: 
+ubuntu@ubuntu-OptiPlex-5000:~$ sudo systemctl enable mongod.service
+ubuntu@ubuntu-OptiPlex-5000:~$ mongosh
+Current Mongosh Log ID:	634666f7d3a83e6ca939a4a2
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017
+ubuntu@ubuntu-OptiPlex-5000:~$ sudo rm -rf /tmp/mongodb-27017.sock
+ubuntu@ubuntu-OptiPlex-5000:~$ brew services restart mongodb-community@5.0
+Command 'brew' not found, did you mean:
+  command 'brec' from deb bplay (0.991-10build1)
+  command 'qbrew' from deb qbrew (0.4.1-8build1)
+Try: sudo apt install <deb name>
+ubuntu@ubuntu-OptiPlex-5000:~$ mongo
+Command 'mongo' not found, did you mean:
+  command 'mono' from deb mono-runtime (6.8.0.105+dfsg-3.2)
+Try: sudo apt install <deb name>
+ubuntu@ubuntu-OptiPlex-5000:~$ sudo service mongod start
+ubuntu@ubuntu-OptiPlex-5000:~$ sudo systemctl enable mongod.service
+ubuntu@ubuntu-OptiPlex-5000:~$ mongosh
+Current Mongosh Log ID:	6346679d1fbba904cc8a9a2f
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+Using MongoDB:		6.0.1
+Using Mongosh:		1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2022-10-12T12:36:58.737+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2022-10-12T12:36:58.990+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2022-10-12T12:36:58.990+05:30: vm.max_map_count is too low
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+   
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+   
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> 
